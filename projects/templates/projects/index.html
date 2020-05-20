@@ -1,23 +1,25 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+{% extends "projects/layout.html" %}
+{% block content %}
 {% load static %}
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}"> -->
 {% if latest_project_list %}
-{% for project in latest_project_list %}
-    <div class="row">
-        <div class="col-md-3">{{ project.name }}</div>
-        {% if project.image %}
-            <div class="col-md-3"><img style="width:100%;" src="{{ project.image.url }}"></div>
-        {% endif %}
-        <div class="col-md-3">{{ project.details }}</div>
+<div class="row">
+    <div class="card-deck">
+        {% for project in latest_project_list %}
+        <div class="card">
+            {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">{{ project.details }}</p>
+              <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+</div>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+{% endblock %}
